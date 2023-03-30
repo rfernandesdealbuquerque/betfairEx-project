@@ -1,5 +1,6 @@
 package betfairEx;
 
+import betfairEx.dto.AccountDetailsResponseDTO;
 import betfairEx.dto.LoginRequestDTO;
 import betfairEx.service.AccountService;
 
@@ -13,6 +14,9 @@ public class Main {
 		loginRequestDTO.setPassword("Futebol@27");
 		
 		accountService.login(loginRequestDTO);
+		accountService.getAccountDetails();
+		accountService.getAccountFunds();
+		
 	}
 
 }

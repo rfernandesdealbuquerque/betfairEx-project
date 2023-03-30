@@ -36,7 +36,7 @@ public class LoginResponseDTO {
 		return "token: " + this.getToken() + "\n"
 		+ "product: " + this.getProduct() + "\n"
 		+ "status: " + this.getStatus() + "\n"
-		+ "error: " + this.getError(); 
+		+ "error: " + this.getError() + "\n"; 
 		
 	}
 
