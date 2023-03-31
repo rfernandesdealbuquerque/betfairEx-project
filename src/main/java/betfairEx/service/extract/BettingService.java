@@ -42,7 +42,7 @@ public class BettingService {
 				Gson gson = new Gson();
 				HttpResponse<String> postResponse = httpClient.send(postRequest, BodyHandlers.ofString());
 				System.out.print(postResponse.body() + "\n");
-				//eventsResponseDTO = gson.fromJson(postResponse.body(), EventsResponseDTO.class);
+				eventsResponseDTO = gson.fromJson(postResponse.body(), EventsResponseDTO.class);
 				//System.out.println(eventsResponseDTO);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -1,17 +1,18 @@
 package betfairEx.dto.betting;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EventsResponseDTO {
 	private String jsonrpc;
-	private EventResult result;
+	private ArrayList<EventResult> result;
 	private int id;
 	
 	public String getJsonrpc() {
 		return jsonrpc;
 	}
 
-	public EventResult getResult() {
+	public ArrayList<EventResult> getResult() {
 		return result;
 	}
 
