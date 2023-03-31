@@ -1,4 +1,4 @@
-package betfairEx.dto;
+package betfairEx.dto.account;
 
 public class AccountDetailsResponseDTO {
 	private String currencyCode;

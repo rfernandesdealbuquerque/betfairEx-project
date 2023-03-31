@@ -1,4 +1,4 @@
-package betfairEx.dto;
+package betfairEx.dto.login;
 
 public class LoginResponseDTO {
 	

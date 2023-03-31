@@ -1,4 +1,4 @@
-package betfairEx.service;
+package betfairEx.service.extract;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,10 +11,10 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 import com.google.gson.Gson;
 
-import betfairEx.dto.AccountDetailsResponseDTO;
-import betfairEx.dto.AccountFundsResponseDTO;
-import betfairEx.dto.LoginRequestDTO;
-import betfairEx.dto.LoginResponseDTO;
+import betfairEx.dto.account.AccountDetailsResponseDTO;
+import betfairEx.dto.account.AccountFundsResponseDTO;
+import betfairEx.dto.login.LoginRequestDTO;
+import betfairEx.dto.login.LoginResponseDTO;
 
 public class AccountService {
 	
@@ -26,12 +26,16 @@ public class AccountService {
 	private static final String ENDPOINT_GET_ACCOUNT_DETAILS = "/getAccountDetails/";
 	private static final String ENDPOINT_GET_ACCOUNT_FUNDS = "/getAccountFunds";
 	
-	private static final String APPLICATION_KEY = "Kd8cCss5J3pcc5IM";
+	public static final String APPLICATION_KEY = "Kd8cCss5J3pcc5IM";
 	
-	public String sessionToken;
+	private String sessionToken;
 	
-	
+	public String getSessionToken() {
+		return sessionToken;
+	}
+
 	public void login(LoginRequestDTO loginRequestDTO) {
+		
 		
 		try {
 			HttpRequest postRequest = HttpRequest.newBuilder()

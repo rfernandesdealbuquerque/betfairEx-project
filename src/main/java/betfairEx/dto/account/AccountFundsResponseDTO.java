@@ -1,4 +1,4 @@
-package betfairEx.dto;
+package betfairEx.dto.account;
 
 public class AccountFundsResponseDTO {
 	private String jsonrpc;
@@ -9,27 +9,14 @@ public class AccountFundsResponseDTO {
 		return jsonrpc;
 	}
 
-	public void setJsonrpc(String jsonrpc) {
-		this.jsonrpc = jsonrpc;
-	}
 	public AccountFundsResult getResult() {
 		return result;
-	}
-
-	public void setResult(AccountFundsResult result) {
-		this.result = result;
 	}
 
 	public int getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-
 
 	private class AccountFundsResult{
 		private float availableToBetBalance;
