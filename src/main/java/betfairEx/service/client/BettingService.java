@@ -22,6 +22,7 @@ public class BettingService {
 	
 	private static final String ENDPOINT_LIST_EVENTS = "/listEvents";
 	private static final String ENDPOINT_LIST_MARKET_CATALOGUE = "/listMarketCatalogue";
+	private static final String ENDPOINT_LIST_MARKET_BOOK = "/listMarketBook";
 	
 	public static final String APPLICATION_KEY = "Kd8cCss5J3pcc5IM";
 	
@@ -97,8 +98,37 @@ public class BettingService {
 	}
 
 	public MarketBookResponseDTO listMarketBook(String marketId) {
-		
+		try {
+			String request = String.format("{\"jsonrpc\": \"2.0\", \"method\": \"SportsAPING/v1.0/listMarketBook\", \"params\": {\"marketIds\":[\"%s\"],\"priceProjection\":{\"priceData\":[\"EX_BEST_OFFERS\"],\"virtualise\":\"true\",\"exBestOffersOverrides\":{\"bestPricesDepth\":\"3\"}}}, \"id\": 1}" 
+							,marketId);
+			HttpRequest postRequest = HttpRequest.newBuilder()
+						.uri(new URI(URL_BETTING_API_RPC + ENDPOINT_LIST_MARKET_BOOK))
+						.header("X-Application", APPLICATION_KEY)
+						.header("X-Authentication", sessionToken )
+						.POST(BodyPublishers.ofString(request))
+						.build();
+			HttpClient httpClient = HttpClient.newHttpClient();
+			System.out.println(postRequest);
+			try {
+				MarketBookResponseDTO marketBookResponseDTO = new MarketBookResponseDTO();
+				Gson gson = new Gson();
+				HttpResponse<String> postResponse = httpClient.send(postRequest, BodyHandlers.ofString());
+				System.out.print(postResponse.body() + "\n");
+				marketBookResponseDTO = gson.fromJson(postResponse.body(), MarketBookResponseDTO.class);
+				return marketBookResponseDTO;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
+		
 		
 	}
 }

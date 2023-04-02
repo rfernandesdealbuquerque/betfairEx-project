@@ -14,6 +14,8 @@ import betfairEx.service.Processor;
 import betfairEx.service.client.AccountService;
 import betfairEx.service.client.BettingService;
 
+//PROJECT GITHUB PERSONAL TOKEN: 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
+
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
@@ -40,6 +42,9 @@ public class Main {
 		for(Event event : myEventsBook.keySet()) {
 			Integer eventId = (Integer) event.getId();
 			MarketCatalogueResponseDTO market = bettingService.listMarketCatalogue(eventId.toString());
+			if(market.getResult().size() == 0) { //event doesn't have market of type MATCH_ODDS
+				continue;
+			}
 			String marketId = market.getResult().get(0).getMarketId();
 			MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
 			process.processMarketBook(marketBookResponseDTO, eventId, myEventsBook); //format marketBook the way Otavio needs, add to map

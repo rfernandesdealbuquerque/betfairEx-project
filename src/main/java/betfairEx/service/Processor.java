@@ -13,11 +13,11 @@ import betfairEx.model.MarketBook;
 
 public class Processor {
 	
-	public LinkedList<Event> formatEvents(EventsResponseDTO eventResponseDTO){
+	public LinkedList<Event> formatEvents(EventsResponseDTO eventsResponseDTO){
 		
 		LinkedList<Event> myEvents = new LinkedList<Event>();
 		
-		for(EventResultDTO eventResultDTO : eventResponseDTO.getResult()) {
+		for(EventResultDTO eventResultDTO : eventsResponseDTO.getResult()) {
 			EventDTO eventDTO = eventResultDTO.getEvent();
 			Event event = new Event();
 			event.setId(Integer.valueOf(eventDTO.getId()));
@@ -26,6 +26,8 @@ public class Processor {
 			
 			myEvents.add(event);
 		}
+		
+		//System.out.print(myEvents);
 		
 		return myEvents;
 		
@@ -41,6 +43,16 @@ public class Processor {
 		LinkedList<Event> myEvents = formatEvents(eventResponseDTO);
 		addToEventsBook(myEventsBook, myEvents);
 	}
+	
+	
+	public MarketBook formatMarketBook(MarketBookResponseDTO marketBookResponseDTO) {
+		
+		
+		
+		return null;
+		
+	}
+	
 
 	public void processMarketBook(MarketBookResponseDTO marketBook, Integer eventId, HashMap<Event, List<MarketBook>> myEventsBook) {
 		// TODO Auto-generated method stub
