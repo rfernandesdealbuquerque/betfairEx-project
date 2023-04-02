@@ -2,6 +2,7 @@ package betfairEx;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import betfairEx.dto.account.AccountDetailsResponseDTO;
 import betfairEx.dto.betting.EventsResponseDTO;
@@ -37,25 +38,38 @@ public class Main {
 		
 		//GET INFO FOR BETTING 
 		bettingService.setSessionToken(sessionToken);
-		EventsResponseDTO eventResponseDTO = bettingService.listEvents();
-		process.processEvents(myEventsBook, eventResponseDTO);
-		for(Event event : myEventsBook.keySet()) {
-			Integer eventId = (Integer) event.getId();
-			MarketCatalogueResponseDTO market = bettingService.listMarketCatalogue(eventId.toString());
-			if(market.getResult().size() == 0) { //event doesn't have market of type MATCH_ODDS
-				continue;
-			}
-			String marketId = market.getResult().get(0).getMarketId();
-			MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
-			process.processMarketBook(marketBookResponseDTO, eventId, myEventsBook); //format marketBook the way Otavio needs, add to map
-			//TO DO: create MarketBookResponse, create listMarketBook, create processMarketBook
-			
-			break;
+		while(true) {
+			EventsResponseDTO eventResponseDTO = bettingService.listEvents();
+			process.processEvents(myEventsBook, eventResponseDTO);
+			for(Event event : myEventsBook.keySet()) {
+				Integer eventId = (Integer) event.getId();
+				MarketCatalogueResponseDTO market = bettingService.listMarketCatalogue(eventId.toString());
+				if(market.getResult().size() == 0) { //if event doesn't have market of type MATCH_ODDS
+					continue;
+				}
+				String marketId = market.getResult().get(0).getMarketId();
+				MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
+				process.processMarketBook(marketBookResponseDTO, event, marketId, myEventsBook); //add new market book to myEventsBook - keep only 10 most recent market books for each event			
+				
+				// THERE'S SOMETHING WRONG - ADDING DUPLICATES - CHECK HASHCODE
+				
+				System.out.print(eventId + " " + myEventsBook.get(event).size() + " ");
+				
+				if(myEventsBook.get(event).size()==2) {
+					runAlgorithm(eventId);
+				}
 		
+			}
+			TimeUnit.SECONDS.sleep(10);
 		}
 		
 		//System.out.print(myEventsBook);
 		
+		
+	}
+	
+	public static String runAlgorithm(Integer eventId) {
+		return "Running algorithm on event" + eventId;
 		
 	}
 

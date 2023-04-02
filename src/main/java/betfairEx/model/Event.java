@@ -31,5 +31,10 @@ public class Event {
 		return id + name + openDate.toString();
 	}
 	
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	
 
 }

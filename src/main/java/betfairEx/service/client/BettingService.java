@@ -46,7 +46,7 @@ public class BettingService {
 				EventsResponseDTO eventsResponseDTO = new EventsResponseDTO();
 				Gson gson = new Gson();
 				HttpResponse<String> postResponse = httpClient.send(postRequest, BodyHandlers.ofString());
-				System.out.print(postResponse.body() + "\n");
+				//System.out.print(postResponse.body() + "\n");
 				eventsResponseDTO = gson.fromJson(postResponse.body(), EventsResponseDTO.class);
 				return eventsResponseDTO;	
 			} catch (IOException e) {
@@ -79,7 +79,7 @@ public class BettingService {
 				MarketCatalogueResponseDTO marketCatalogueResponseDTO = new MarketCatalogueResponseDTO();
 				Gson gson = new Gson();
 				HttpResponse<String> postResponse = httpClient.send(postRequest, BodyHandlers.ofString());
-				System.out.print(postResponse.body() + "\n");
+				//System.out.print(postResponse.body() + "\n");
 				marketCatalogueResponseDTO = gson.fromJson(postResponse.body(), MarketCatalogueResponseDTO.class);
 				return marketCatalogueResponseDTO;
 			} catch (IOException e) {
@@ -113,7 +113,7 @@ public class BettingService {
 				MarketBookResponseDTO marketBookResponseDTO = new MarketBookResponseDTO();
 				Gson gson = new Gson();
 				HttpResponse<String> postResponse = httpClient.send(postRequest, BodyHandlers.ofString());
-				System.out.print(postResponse.body() + "\n");
+				//System.out.print(postResponse.body() + "\n");
 				marketBookResponseDTO = gson.fromJson(postResponse.body(), MarketBookResponseDTO.class);
 				return marketBookResponseDTO;
 			} catch (IOException e) {

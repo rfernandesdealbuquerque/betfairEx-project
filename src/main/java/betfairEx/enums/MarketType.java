@@ -1,4 +1,4 @@
-package betfairEx.model;
+package betfairEx.enums;
 
 public enum MarketType {
 	MATCH_ODDS ("Match Odds"),

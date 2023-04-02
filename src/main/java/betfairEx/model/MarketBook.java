@@ -2,14 +2,17 @@ package betfairEx.model;
 
 import java.util.List;
 
+import betfairEx.enums.MarketStatus;
+import betfairEx.enums.MarketType;
+
 public class MarketBook {
 	private String marketId;
 	private MarketType marketType;
 	private Boolean isMarketDataDelayed;
 	private MarketStatus status;
 	private Boolean inplay;
-	private Integer totalMatched;
-	private Integer totalAvailable;
+	private Double totalMatched;
+	private Double totalAvailable;
 	private Integer numberOfWinners;
 	private Integer numberOfRunners;
 	private Integer numberOfActiveRunners;
@@ -30,10 +33,10 @@ public class MarketBook {
 	public Boolean getInplay() {
 		return inplay;
 	}
-	public Integer getTotalMatched() {
+	public Double getTotalMatched() {
 		return totalMatched;
 	}
-	public Integer getTotalAvailable() {
+	public Double getTotalAvailable() {
 		return totalAvailable;
 	}
 	public Integer getNumberOfWinners() {
@@ -63,10 +66,10 @@ public class MarketBook {
 	public void setInplay(Boolean inplay) {
 		this.inplay = inplay;
 	}
-	public void setTotalMatched(Integer totalMatched) {
+	public void setTotalMatched(Double totalMatched) {
 		this.totalMatched = totalMatched;
 	}
-	public void setTotalAvailable(Integer totalAvailable) {
+	public void setTotalAvailable(Double totalAvailable) {
 		this.totalAvailable = totalAvailable;
 	}
 	public void setNumberOfWinners(Integer numberOfWinners) {

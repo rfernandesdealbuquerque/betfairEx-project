@@ -1,5 +1,7 @@
 package betfairEx.model;
 
+import betfairEx.enums.RunnerStatus;
+
 public class Runner {
 	private Long selectionId;
 	private Double handicap;

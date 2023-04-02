@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import betfairEx.enums.MarketStatus;
+import betfairEx.enums.RunnerStatus;
+import betfairEx.model.ExchangePrices;
+
 public class MarketBookResponseDTO {
 	
 	private String jsonrpc;
@@ -25,7 +29,7 @@ public class MarketBookResponseDTO {
 	public class MarketBookDTO {
 		private String marketId;
 		private boolean isMarketDataDelayed;
-		private MarketStatusDTO status;
+		private MarketStatus status;
 		private int betDelay;
 		private boolean bspReconciled;
 		private boolean complete;
@@ -47,7 +51,7 @@ public class MarketBookResponseDTO {
 		public boolean isMarketDataDelayed() {
 			return isMarketDataDelayed;
 		}
-		public MarketStatusDTO getStatus() {
+		public MarketStatus getStatus() {
 			return status;
 		}
 		public int getBetDelay() {
@@ -96,20 +100,14 @@ public class MarketBookResponseDTO {
 	
 	}
 	
-	public enum MarketStatusDTO{
-		INACTIVE,
-		OPEN,
-		SUSPENDED,
-		CLOSED
-	}
 	
 	public class RunnerDTO{ //Runner is the result you are backing. E.g. team 1 victory is a runner, team 2 victory is another runner and draw is a third runner
 		private long selectionId;
 		private double handicap;
-		private RunnerStatusDTO status;
+		private RunnerStatus status;
 		private double lastPriceTraded;
 		private double totalMatched;
-		private ExchangePricesDTO ex;
+		private ExchangePrices ex;
 		
 		public long getSelectionId() {
 			return selectionId;
@@ -117,7 +115,7 @@ public class MarketBookResponseDTO {
 		public double getHandicap() {
 			return handicap;
 		}
-		public RunnerStatusDTO getStatus() {
+		public RunnerStatus getStatus() {
 			return status;
 		}
 		public double getLastPriceTraded() {
@@ -126,54 +124,11 @@ public class MarketBookResponseDTO {
 		public double getTotalMatched() {
 			return totalMatched;
 		}
-		public ExchangePricesDTO getEx() {
+		public ExchangePrices getEx() {
 			return ex;
 		}
-		
-		
+			
 	
-	}
-	
-	public enum RunnerStatusDTO{
-		ACTIVE,
-		WINNER,
-		LOSER,
-		PLACED,
-		REMOVE_VACANT,
-		REMOVED,
-		HIDDEN
-	}
-	
-	public class ExchangePricesDTO{
-		private List<PriceSizeDTO> availableToBack;
-		private List<PriceSizeDTO> availableToLay;
-		private List<PriceSizeDTO> tradedVolume;
-		
-		public List<PriceSizeDTO> getAvailableToBack() {
-			return availableToBack;
-		}
-		public List<PriceSizeDTO> getAvailableToLay() {
-			return availableToLay;
-		}
-		public List<PriceSizeDTO> getTradedVolume() {
-			return tradedVolume;
-		}
-		
-		
-	}
-	
-	public class PriceSizeDTO{
-		private double price;
-		private double size;
-		
-		public double getPrice() {
-			return price;
-		}
-		public double getSize() {
-			return size;
-		}
-		
-		
 	}
 	
 
