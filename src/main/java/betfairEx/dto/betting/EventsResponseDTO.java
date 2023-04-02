@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class EventsResponseDTO {
 	private String jsonrpc;
-	private ArrayList<EventResult> result;
+	private ArrayList<EventResultDTO> result;
 	private int id;
 	
 	public String getJsonrpc() {
 		return jsonrpc;
 	}
 
-	public ArrayList<EventResult> getResult() {
+	public ArrayList<EventResultDTO> getResult() {
 		return result;
 	}
 
@@ -20,11 +20,11 @@ public class EventsResponseDTO {
 		return id;
 	}
 
-	private class EventResult{
-		private Event event;
+	public class EventResultDTO{
+		private EventDTO event;
 		private int marketCount;
 		
-		public Event getEvent() {
+		public EventDTO getEvent() {
 			return event;
 		}
 		public int getMarketCount() {
@@ -33,7 +33,7 @@ public class EventsResponseDTO {
 		
 	}
 	
-	private class Event{
+	public class EventDTO{
 		private String id;
 		private String name;
 		private String countryCode;

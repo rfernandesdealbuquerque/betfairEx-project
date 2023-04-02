@@ -4,7 +4,7 @@ package betfairEx.dto.betting;
 import java.util.Date;
 import java.util.Set;
 
-public class MarketFilter {
+public class MarketFilterRequestDTO {
 	private String textQuery;
 	private Set <String> eventTypeIds;
 	private Set <String> eventIds;
@@ -18,7 +18,7 @@ public class MarketFilter {
 	private Set <String> marketCountries;
 	private Set<String> marketTypeCodes;
 	private TimeRange marketStartTime;
-	private Set <OrderStatus> withOrders;
+	private Set <OrderStatusRequestDTO> withOrders;
 	private String raceTypes;
 	
 	public String getTextQuery() {
@@ -73,7 +73,7 @@ public class MarketFilter {
 		return marketStartTime;
 	}
 
-	public Set<OrderStatus> getWithOrders() {
+	public Set<OrderStatusRequestDTO> getWithOrders() {
 		return withOrders;
 	}
 
@@ -133,7 +133,7 @@ public class MarketFilter {
 		this.marketStartTime = marketStartTime;
 	}
 
-	public void setWithOrders(Set<OrderStatus> withOrders) {
+	public void setWithOrders(Set<OrderStatusRequestDTO> withOrders) {
 		this.withOrders = withOrders;
 	}
 

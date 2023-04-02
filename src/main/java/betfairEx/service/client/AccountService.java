@@ -1,4 +1,4 @@
-package betfairEx.service.extract;
+package betfairEx.service.client;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,14 +29,8 @@ public class AccountService {
 	public static final String APPLICATION_KEY = "Kd8cCss5J3pcc5IM";
 	
 	private String sessionToken;
-	
-	public String getSessionToken() {
-		return sessionToken;
-	}
 
-	public void login(LoginRequestDTO loginRequestDTO) {
-		
-		
+	public String login(LoginRequestDTO loginRequestDTO) {
 		try {
 			HttpRequest postRequest = HttpRequest.newBuilder()
 					.uri(new URI(URL_INTERACTIVE_LOGIN_API))
@@ -54,6 +48,7 @@ public class AccountService {
 				loginResponseDTO = gson.fromJson(postResponse.body(), LoginResponseDTO.class);
 				sessionToken = loginResponseDTO.getToken();
 				System.out.println(loginResponseDTO);
+				return sessionToken;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,7 +59,8 @@ public class AccountService {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+		return sessionToken;	
 	}
 	
 	public void getAccountDetails() {
