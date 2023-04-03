@@ -16,7 +16,7 @@ import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
 import betfairEx.model.Runner;
 
-public class Processor {
+public class Formatter {
 	
 	public LinkedList<Event> formatEvents(EventsResponseDTO eventsResponseDTO){ //create list of event entities from response
 		
@@ -37,19 +37,6 @@ public class Processor {
 		return myEvents;
 		
 	}
-	
-	public void addEventToEventsBook(HashMap<Event, List<MarketBook>> myEventsBook, LinkedList<Event> myEvents) {
-		for (Event event : myEvents) {
-			if (!myEventsBook.containsKey(event)) //add only event that do not exist already
-				myEventsBook.put(event, new LinkedList<MarketBook>());
-		}
-	}
-	
-	public void processEvents(HashMap<Event, List<MarketBook>> myEventsBook, EventsResponseDTO eventResponseDTO) {
-		LinkedList<Event> myEvents = formatEvents(eventResponseDTO);
-		addEventToEventsBook(myEventsBook, myEvents);
-	}
-	
 	
 	public MarketBook formatMarketBook(MarketBookResponseDTO marketBookResponseDTO, String marketType) {
 		
@@ -92,25 +79,4 @@ public class Processor {
 		
 	}
 	
-	public void addMarketBookToEventsBook(HashMap<Event, List<MarketBook>> myEventsBook, Event event, MarketBook marketBook) {
-		if(myEventsBook.get(event).size() < 10) {
-			myEventsBook.get(event).add(marketBook);
-
-		}
-		else {
-			myEventsBook.get(event).remove(0);
-			myEventsBook.get(event).add(marketBook);
-		}
-	}
-	
-
-	public void processMarketBook(MarketBookResponseDTO marketBookResponseDTO, Event event, String marketType, HashMap<Event, List<MarketBook>> myEventsBook) {
-		// TODO Auto-generated method stub
-		
-		MarketBook marketBook = formatMarketBook(marketBookResponseDTO, marketType);
-		addMarketBookToEventsBook(myEventsBook, event, marketBook);
-		
-	}
-
-
 }

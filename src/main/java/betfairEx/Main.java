@@ -11,21 +11,20 @@ import betfairEx.dto.betting.MarketCatalogueResponseDTO;
 import betfairEx.dto.login.LoginRequestDTO;
 import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
-import betfairEx.service.Processor;
+import betfairEx.service.Formatter;
 import betfairEx.service.client.AccountService;
 import betfairEx.service.client.BettingService;
 
-//PROJECT GITHUB PERSONAL TOKEN: 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
+//PROJECT GITHUB PERSONAL TOKEN: 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
 
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
-		HashMap<Event, List<MarketBook>> myEventsBook = new HashMap<Event, List<MarketBook>>();
+		EventsBook myEventsBook = new EventsBook();
 		
 		AccountService accountService = new AccountService();
 		LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
 		BettingService bettingService = new BettingService();
-		Processor process = new Processor();
 		
 		//LOGIN
 		loginRequestDTO.setUsername("rodrig20002012@gmail.com");
@@ -40,8 +39,9 @@ public class Main {
 		bettingService.setSessionToken(sessionToken);
 		while(true) {
 			EventsResponseDTO eventResponseDTO = bettingService.listEvents();
-			process.processEvents(myEventsBook, eventResponseDTO);
-			for(Event event : myEventsBook.keySet()) {
+			myEventsBook.processNewEvents(eventResponseDTO);
+	
+			for(Event event : myEventsBook.getMyEventsBook().keySet()) {
 				Integer eventId = (Integer) event.getId();
 				MarketCatalogueResponseDTO market = bettingService.listMarketCatalogue(eventId.toString());
 				if(market.getResult().size() == 0) { //if event doesn't have market of type MATCH_ODDS
@@ -49,19 +49,18 @@ public class Main {
 				}
 				String marketId = market.getResult().get(0).getMarketId();
 				MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
-				process.processMarketBook(marketBookResponseDTO, event, marketId, myEventsBook); //add new market book to myEventsBook - keep only 10 most recent market books for each event			
-				
-				// THERE'S SOMETHING WRONG - ADDING DUPLICATES - CHECK HASHCODE
-				
-				System.out.print(eventId + " " + myEventsBook.get(event).size() + " ");
-				
-				if(myEventsBook.get(event).size()==2) {
-					runAlgorithm(eventId);
+				myEventsBook.processNewMarketBook(marketBookResponseDTO, event, marketId); //add new market book to myEventsBook - keep only 10 most recent market books for each event			
+						
+				if(myEventsBook.getMyEventsBook().get(event).size()== 3) {
+					System.out.print(runAlgorithm(eventId));
 				}
-		
+				
 			}
-			TimeUnit.SECONDS.sleep(10);
-		}
+			for(Event event : myEventsBook.getMyEventsBook().keySet()) {
+				System.out.print("End of round " + event.getId() + " " + myEventsBook.getMyEventsBook().get(event).size() + "\n");
+			}
+			TimeUnit.SECONDS.sleep(5);
+		} //TO DO: print map formatted to verify if everything is good. 
 		
 		//System.out.print(myEventsBook);
 		
@@ -69,7 +68,7 @@ public class Main {
 	}
 	
 	public static String runAlgorithm(Integer eventId) {
-		return "Running algorithm on event" + eventId;
+		return "Running algorithm on event " + eventId + "\n";
 		
 	}
 

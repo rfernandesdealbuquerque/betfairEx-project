@@ -3,11 +3,11 @@ package betfairEx.model;
 import java.util.Date;
 
 public class Event {
-	private Integer id;
+	private int id;
 	private String name;
 	private Date openDate;
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	public String getName() {
@@ -16,7 +16,7 @@ public class Event {
 	public Date getOpenDate() {
 		return openDate;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public void setName(String name) {
@@ -28,12 +28,22 @@ public class Event {
 	
 	@Override
 	public String toString() {
-		return id + name + openDate.toString();
+		return id + " " + name + " ";
+	}
+	
+	@Override
+	public boolean equals(Object event) {
+		if(this.id == ((Event) event).getId()) {
+			return true;
+			
+		}
+		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return id;
+		return this.id;
+		
 	}
 	
 
