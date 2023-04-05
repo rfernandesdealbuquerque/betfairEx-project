@@ -15,7 +15,7 @@ import betfairEx.service.Formatter;
 import betfairEx.service.client.AccountService;
 import betfairEx.service.client.BettingService;
 
-//PROJECT GITHUB PERSONAL TOKEN: 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
+//PROJECT GITHUB PERSONAL TOKEN: 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
 
 public class Main {
 	public static void main(String[] args) throws Exception {

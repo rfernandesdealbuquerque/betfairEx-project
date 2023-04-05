@@ -38,7 +38,7 @@ public class BettingService {
 						.uri(new URI(URL_BETTING_API_RPC + ENDPOINT_LIST_EVENTS))
 						.header("X-Application", APPLICATION_KEY)
 						.header("X-Authentication", sessionToken )
-						.POST(BodyPublishers.ofString("{\"jsonrpc\": \"2.0\", \"method\": \"SportsAPING/v1.0/listEvents\", \"params\": {\"filter\":{\"eventTypeIds\":[\"1\"],\"inPlayOnly\":true}}, \"id\": 1}"))
+						.POST(BodyPublishers.ofString("{\"jsonrpc\": \"2.0\", \"method\": \"SportsAPING/v1.0/listEvents\", \"params\": {\"filter\":{\"eventTypeIds\":[\"1\"],\"inPlayOnly\":true,\"marketTypeCodes\":[\"MATCH_ODDS\"]}}, \"id\": 1}"))
 						.build();
 			HttpClient httpClient = HttpClient.newHttpClient();
 			System.out.println(postRequest);
@@ -99,7 +99,7 @@ public class BettingService {
 
 	public MarketBookResponseDTO listMarketBook(String marketId) {
 		try {
-			String request = String.format("{\"jsonrpc\": \"2.0\", \"method\": \"SportsAPING/v1.0/listMarketBook\", \"params\": {\"marketIds\":[\"%s\"],\"priceProjection\":{\"priceData\":[\"EX_BEST_OFFERS\"],\"virtualise\":\"true\",\"exBestOffersOverrides\":{\"bestPricesDepth\":\"3\"}}}, \"id\": 1}" 
+			String request = String.format("{\"jsonrpc\": \"2.0\", \"method\": \"SportsAPING/v1.0/listMarketBook\", \"params\": {\"currencyCode\":\"BRL\",\"marketIds\":[\"%s\"],\"priceProjection\":{\"priceData\":[\"EX_BEST_OFFERS\"],\"virtualise\":\"true\",\"exBestOffersOverrides\":{\"bestPricesDepth\":\"3\"}}}, \"id\": 1}" 
 							,marketId);
 			HttpRequest postRequest = HttpRequest.newBuilder()
 						.uri(new URI(URL_BETTING_API_RPC + ENDPOINT_LIST_MARKET_BOOK))

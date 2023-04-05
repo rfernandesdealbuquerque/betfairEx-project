@@ -10,9 +10,11 @@ import betfairEx.dto.betting.EventsResponseDTO.EventDTO;
 import betfairEx.dto.betting.EventsResponseDTO.EventResultDTO;
 import betfairEx.dto.betting.MarketBookResponseDTO.MarketBookDTO;
 import betfairEx.dto.betting.MarketBookResponseDTO.RunnerDTO;
+import betfairEx.enums.MarketStatus;
 import betfairEx.enums.MarketType;
 import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
+import betfairEx.model.PriceSize;
 import betfairEx.model.Runner;
 import betfairEx.service.Formatter;
 
@@ -53,6 +55,10 @@ public class EventsBook {
 	public void addMarketBook(Event event, MarketBook marketBook) {
 		
 		HashMap<Event, List<MarketBook>> myEventsBook = this.getMyEventsBook();
+		if(!marketBook.getStatus().equals(MarketStatus.OPEN)) {
+			return;
+		}
+		
 		if(myEventsBook.get(event).size() < 3) {
 			
 			LinkedList<MarketBook> myUpdatedList = (LinkedList<MarketBook>) myEventsBook.get(event);
@@ -78,13 +84,39 @@ public class EventsBook {
 	
 	public void printMyEventsBook() {
 		for (Event event : myEventsBook.keySet()) {
-			List<MarketBook> marketBook = myEventsBook.get(event);
+			List<MarketBook> marketsBook = myEventsBook.get(event);
 			System.out.printf("event: %s \n", event.getName());
 			System.out.printf("id: %s \n", event.getId());
-			System.out.printf("market id: %s \n", marketBook.get(marketBook.size()-1).getMarketId());
-			System.out.printf("inPlay: %s \n", marketBook.get(marketBook.size()-1).getInplay());
-			System.out.printf("total matched: %f \n", marketBook.get(marketBook.size()-1).getTotalMatched()); //total matched on last market book added - the one added to the end
-			System.out.print("MarketBook size: " + marketBook.size() + "\n");
+			System.out.printf("market id: %s \n", marketsBook.get(marketsBook.size()-1).getMarketId());
+			System.out.printf("inPlay: %s \n", marketsBook.get(marketsBook.size()-1).getInplay());
+			System.out.printf("total matched: R$%f \n", marketsBook.get(marketsBook.size()-1).getTotalMatched()); //total matched on last market book added - the one added to the end
+			System.out.print("MarketBook size: " + marketsBook.size() + "\n");
+			
+			for (int i = 0; i<marketsBook.size(); i++) {
+				System.out.printf("(%d) \n", i+1);
+				System.out.printf("-------------------------------------------------------   ATB      |      ATL  -------------------------------------------------- \n");
+				for (Runner runner : marketsBook.get(i).getRunners()) {
+					for(int k = 0; k<runner.getEx().getAvailableToBack().size(); k++) {
+						Double atbPrice = runner.getEx().getAvailableToBack().get(k).getPrice();
+						Double atbSize = runner.getEx().getAvailableToBack().get(k).getSize();
+						System.out.printf("%.2f:R$%-10.0f  ", atbPrice, atbSize);
+					}
+					System.out.printf("|    ");
+					for(int k = 0; k<runner.getEx().getAvailableToLay().size(); k++) {
+						Double atlPrice = runner.getEx().getAvailableToLay().get(k).getPrice();
+						Double atlSize = runner.getEx().getAvailableToLay().get(k).getSize();
+						System.out.printf("%.2f:R$%-10.0f  ", atlPrice, atlSize);
+					}
+					System.out.printf("selectionId: %s", runner.getSelectionId().toString());
+					System.out.printf("\n");
+					
+				}
+				System.out.printf("--------------------------------------------------------------------------------------------------------------------------------- \n");
+				
+			}
+			
+			
+			
 		}
 	}
 
