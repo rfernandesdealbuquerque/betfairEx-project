@@ -75,6 +75,18 @@ public class EventsBook {
 		addMarketBook(event, marketBook);
 		
 	}
+	
+	public void printMyEventsBook() {
+		for (Event event : myEventsBook.keySet()) {
+			List<MarketBook> marketBook = myEventsBook.get(event);
+			System.out.printf("event: %s \n", event.getName());
+			System.out.printf("id: %s \n", event.getId());
+			System.out.printf("market id: %s \n", marketBook.get(marketBook.size()-1).getMarketId());
+			System.out.printf("inPlay: %s \n", marketBook.get(marketBook.size()-1).getInplay());
+			System.out.printf("total matched: %f \n", marketBook.get(marketBook.size()-1).getTotalMatched()); //total matched on last market book added - the one added to the end
+			System.out.print("MarketBook size: " + marketBook.size() + "\n");
+		}
+	}
 
 
 }

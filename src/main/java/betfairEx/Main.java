@@ -56,13 +56,19 @@ public class Main {
 				}
 				
 			}
-			for(Event event : myEventsBook.getMyEventsBook().keySet()) {
-				System.out.print("End of round " + event.getId() + " " + myEventsBook.getMyEventsBook().get(event).size() + "\n");
-			}
+			//for(Event event : myEventsBook.getMyEventsBook().keySet()) {
+				//System.out.print("End of round " + event.getId() + " " + myEventsBook.getMyEventsBook().get(event).size() + "\n");
+			//}
+			
+			myEventsBook.printMyEventsBook();
+			
 			TimeUnit.SECONDS.sleep(5);
+			
+			
 		} //TO DO: print map formatted to verify if everything is good. 
 		
 		//System.out.print(myEventsBook);
+		
 		
 		
 	}
