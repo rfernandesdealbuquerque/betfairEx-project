@@ -87,6 +87,9 @@ public class EventsBook {
 			List<MarketBook> marketsBook = myEventsBook.get(event);
 			System.out.printf("event: %s \n", event.getName());
 			System.out.printf("id: %s \n", event.getId());
+			if(marketsBook.size() == 0){
+				continue;
+			}
 			System.out.printf("market id: %s \n", marketsBook.get(marketsBook.size()-1).getMarketId());
 			System.out.printf("inPlay: %s \n", marketsBook.get(marketsBook.size()-1).getInplay());
 			System.out.printf("total matched: R$%f \n", marketsBook.get(marketsBook.size()-1).getTotalMatched()); //total matched on last market book added - the one added to the end
