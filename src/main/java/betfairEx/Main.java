@@ -15,7 +15,7 @@ import betfairEx.service.Formatter;
 import betfairEx.service.client.AccountService;
 import betfairEx.service.client.BettingService;
 
-//PROJECT GITHUB PERSONAL TOKEN: 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
+//PROJECT GITHUB PERSONAL TOKEN: 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
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -49,7 +49,7 @@ public class Main {
 				}
 				String marketId = market.getResult().get(0).getMarketId();
 				MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
-				myEventsBook.processNewMarketBook(marketBookResponseDTO, event, marketId); //add new market book to myEventsBook - keep only 10 most recent market books for each event			
+				myEventsBook.processNewMarketBook(marketBookResponseDTO, event, marketId); //add new market book to myEventsBook - keep only 3 most recent market books for each event			
 						
 				if(myEventsBook.getMyEventsBook().get(event).size()== 3) {
 					System.out.print(runAlgorithm(eventId));
