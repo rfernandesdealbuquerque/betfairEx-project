@@ -1,10 +1,11 @@
-package betfairEx.service;
+package betfairEx.misc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import betfairEx.EventsBook;
 import betfairEx.dto.betting.EventsResponseDTO;
 import betfairEx.dto.betting.EventsResponseDTO.EventDTO;
 import betfairEx.dto.betting.EventsResponseDTO.EventResultDTO;
@@ -15,6 +16,7 @@ import betfairEx.enums.MarketType;
 import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
 import betfairEx.model.Runner;
+import betfairEx.model.SingleOffer;
 
 public class Formatter {
 	

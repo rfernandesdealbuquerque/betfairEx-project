@@ -12,11 +12,11 @@ import betfairEx.dto.betting.MarketBookResponseDTO.MarketBookDTO;
 import betfairEx.dto.betting.MarketBookResponseDTO.RunnerDTO;
 import betfairEx.enums.MarketStatus;
 import betfairEx.enums.MarketType;
+import betfairEx.misc.Formatter;
 import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
 import betfairEx.model.PriceSize;
 import betfairEx.model.Runner;
-import betfairEx.service.Formatter;
 
 public class EventsBook {
 	
@@ -54,7 +54,7 @@ public class EventsBook {
 	
 	public void addMarketBook(Event event, MarketBook marketBook) {
 		
-		HashMap<Event, List<MarketBook>> myEventsBook = this.getMyEventsBook();
+		HashMap<Event, List<MarketBook>> myEventsBook = this.myEventsBook;
 		if(!marketBook.getStatus().equals(MarketStatus.OPEN)) {
 			return;
 		}
