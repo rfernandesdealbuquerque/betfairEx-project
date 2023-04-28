@@ -1,6 +1,7 @@
 package betfairEx;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,10 +13,12 @@ import betfairEx.dto.betting.MarketBookResponseDTO;
 import betfairEx.dto.betting.MarketCatalogueResponseDTO;
 import betfairEx.dto.login.LoginRequestDTO;
 import betfairEx.misc.Formatter;
+import betfairEx.misc.ObjectFactory;
 import betfairEx.model.Event;
 import betfairEx.model.MarketBook;
+import betfairEx.model.SingleOffer;
 
-//PROJECT GITHUB PERSONAL TOKEN: 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
+//PROJECT GITHUB PERSONAL TOKEN: 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
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -25,6 +28,7 @@ public class Main {
 		AccountService accountService = new AccountService();
 		LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
 		BettingService bettingService = new BettingService();
+		ObjectFactory objectFactory = new ObjectFactory();
 		
 		//LOGIN
 		loginRequestDTO.setUsername("rodrig20002012@gmail.com");
@@ -53,7 +57,9 @@ public class Main {
 				MarketBookResponseDTO marketBookResponseDTO = bettingService.listMarketBook(marketId);
 				myEventsBook.processNewMarketBook(marketBookResponseDTO, event, marketId); //add new market book to the corresponding event in myEventsBook - keep only 3 most recent market books for each event			
 						
-				if(myEventsBook.getMyEventsBook().get(event).size()== 3) { //go through the last n market books and create lists for each runner
+				List<MarketBook> myCurrentMarketsBook = myEventsBook.getMyEventsBook().get(event);
+				if(myCurrentMarketsBook.size() == 3) { 
+					List<SingleOffer> offersList = objectFactory.makeOffersList(myCurrentMarketsBook, eventId); //go through the last n market books and create one centralized list with SingleOffer objects
 					System.out.print(runAlgorithm(eventId));
 				}
 				

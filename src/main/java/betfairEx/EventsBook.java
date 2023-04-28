@@ -60,10 +60,10 @@ public class EventsBook {
 		}
 		
 		if(myEventsBook.get(event).size() < 3) {
-			
-			LinkedList<MarketBook> myUpdatedList = (LinkedList<MarketBook>) myEventsBook.get(event);
-			myUpdatedList.add(marketBook);
-			myEventsBook.put(event, myUpdatedList);
+			//Make marketsBook LinkedList so we can scale our window. Maybe we want to look at the last 1000 market books - our inserts must be O(1)
+			LinkedList<MarketBook> myUpdatedMarketsBook = (LinkedList<MarketBook>) myEventsBook.get(event);
+			myUpdatedMarketsBook.add(marketBook);
+			myEventsBook.put(event, myUpdatedMarketsBook);
 			
 
 		}

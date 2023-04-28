@@ -11,15 +11,9 @@ import betfairEx.model.SingleOffer;
 
 public class ObjectFactory {
 	
-	public List<List<SingleOffer>> makeOffersLists(EventsBook myEventsBook, Event event, String runner){
-		LinkedList<SingleOffer> listTeam1 = new LinkedList<SingleOffer>();
-		LinkedList<SingleOffer> listTeam2 = new LinkedList<SingleOffer>();
-		LinkedList<SingleOffer> listDraw = new LinkedList<SingleOffer>();
-		ArrayList<List<SingleOffer>> offersLists = new ArrayList<List<SingleOffer>>();
+	public List<SingleOffer> makeOffersList(List<MarketBook> marketsBook, int eventId){
+		ArrayList<SingleOffer> offersLists = new ArrayList<SingleOffer>();
 		
-		List<MarketBook> marketsBook = myEventsBook.getMyEventsBook().get(event);
-		
-		int eventId = event.getId();
 		String marketId = marketsBook.get(0).getMarketId();
 		
 		for (int i=0; i<marketsBook.size(); i++) {
